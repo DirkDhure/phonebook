@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PhoneBook.API</name>
+    </assembly>
+    <members>
+        <member name="M:PhoneBook.API.Controllers.PhoneBooksController.#ctor(PhoneBook.Abstractions.Services.IPhoneBookApplication,Microsoft.Extensions.Logging.ILogger{PhoneBook.API.Controllers.PhoneBooksController})">
+            <summary>
+            
+            </summary>
+            <param name="phoneBookApplication"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PhoneBook.API.Controllers.PhoneBooksController.CreatePhoneBook(PhoneBook.Abstractions.Model.PhoneBookDetail)">
+            <summary>
+            Creates a new phone book 
+            </summary>
+            <param name="phoneBook"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PhoneBook.API.Controllers.PhoneBooksController.CreatePhoneBookEntry(System.Guid,PhoneBook.Abstractions.Model.PhoneBookEntry)">
+            <summary>
+            Creates a new phone book entry
+            </summary>
+            <param name="phoneBook"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:PhoneBook.API.Program" -->
+    </members>
+</doc>
