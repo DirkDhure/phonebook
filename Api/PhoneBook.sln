@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.API", "src\PhoneBook.API\PhoneBook.API.csproj", "{7E21CFD7-F5A5-41EC-A31C-B4571F8D26ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.API", "src\PhoneBook.API\PhoneBook.API.csproj", "{7E21CFD7-F5A5-41EC-A31C-B4571F8D26ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Core", "src\PhoneBook.Core\PhoneBook.Core.csproj", "{81A1AC11-C077-426B-BFAB-35B86FF3FA80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Core", "src\PhoneBook.Core\PhoneBook.Core.csproj", "{81A1AC11-C077-426B-BFAB-35B86FF3FA80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Infrastructure", "src\PhoneBook.Infrastructure\PhoneBook.Infrastructure.csproj", "{E3A6CC62-4331-4312-B227-64CB9AE5863E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Infrastructure", "src\PhoneBook.Infrastructure\PhoneBook.Infrastructure.csproj", "{E3A6CC62-4331-4312-B227-64CB9AE5863E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Tests", "src\PhoneBook.Tests\PhoneBook.Tests.csproj", "{4E9A66DD-BF25-4D96-937D-6997020189B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Tests", "src\PhoneBook.Tests\PhoneBook.Tests.csproj", "{4E9A66DD-BF25-4D96-937D-6997020189B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Abstractions", "src\PhoneBook.Abstractions\PhoneBook.Abstractions.csproj", "{13B0E4DB-55EE-4786-A64F-24BE016B3628}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Abstractions", "src\PhoneBook.Abstractions\PhoneBook.Abstractions.csproj", "{13B0E4DB-55EE-4786-A64F-24BE016B3628}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

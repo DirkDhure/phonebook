@@ -28,7 +28,11 @@ namespace PhoneBook.Abstractions
         /// 
         /// </summary>
         string QueryDatabaseName { get; set; }
-      
+
+        string EventStoreConnectionString { get; set; }
+
+        string EventStoreStreamName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -66,6 +70,10 @@ namespace PhoneBook.Abstractions
         /// 
         /// </summary>
         public string DataStorage { get; set; }
+
+        public string EventStoreConnectionString { get; set; }
+
+        public string EventStoreStreamName { get; set; }
     }
 
 

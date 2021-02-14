@@ -8,7 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PhoneBook.Abstractions.Repositories.Read;
+using PhoneBook.Abstractions.Repositories.Write;
+using PhoneBook.Abstractions.Services;
 using PhoneBook.API.Services;
+using PhoneBook.Core.Services;
+using PhoneBook.Infrastructure.Data.MongoDB.Read;
+using PhoneBook.Infrastructure.Data.MongoDB.Write;
 using Serilog;
 using System;
 using System.IO;
@@ -61,9 +67,9 @@ namespace PhoneBook.API
             });
 
 
-            //write to mongo write
-            // services.AddTransient<IFileLoaderApplication, FileLoaderApplication>();
-
+            services.AddTransient<IPhoneBookApplication, PhoneBookApplication>();
+            services.AddTransient<IPhoneBookQueryRepository, PhoneBookQueryRepository>();
+            services.AddTransient<IPhoneBookRepository, PhoneBookRepository>();
 
 
             //add httpclient

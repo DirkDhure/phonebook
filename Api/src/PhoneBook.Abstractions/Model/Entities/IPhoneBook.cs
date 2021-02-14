@@ -6,6 +6,6 @@ namespace PhoneBook.Abstractions.Model.Entities
     {
         PhoneBookDetail BookDetail { get; set; }
         List<PhoneBookEntry> Entries { get; set; }
-
+      
     }
 }

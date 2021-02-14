@@ -21,6 +21,9 @@ namespace PhoneBook.Abstractions.Model
         [DataMember(Name = "companyName")]
         public string CompanyName { get; set; }
 
+        [DataMember(Name = "avatarUrl")]
+        public string AvatarUrl { get; set; }
+
         [DataMember(Name = "contacts")]
         public List<PhoneBookContact> Contacts { get; set; }
 

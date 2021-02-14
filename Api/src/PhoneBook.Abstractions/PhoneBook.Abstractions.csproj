@@ -3,10 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.0.0" />
   </ItemGroup>

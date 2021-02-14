@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PhoneBook.Abstractions.Repositories
+namespace PhoneBook.Abstractions.Commands
 {
-    class Class1
+    public class UpdatePhoneBookEntryAvatar
     {
     }
 }

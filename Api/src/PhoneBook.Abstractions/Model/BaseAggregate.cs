@@ -30,5 +30,7 @@ namespace PhoneBook.Abstractions.Model
         {
             _events.Clear();
         }
+
+        
     }
 }
