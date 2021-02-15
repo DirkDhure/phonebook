@@ -2,7 +2,6 @@
 using PhoneBook.Abstractions.Model.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PhoneBook.Core.Entities
 {

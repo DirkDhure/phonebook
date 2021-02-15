@@ -29,7 +29,6 @@ namespace PhoneBook.Abstractions.Model
             set => _id = value;
 
         }
-        [DataMember(Name = "isDeleted")]
         public bool IsDeleted
         {
             get => this._isDeleted;

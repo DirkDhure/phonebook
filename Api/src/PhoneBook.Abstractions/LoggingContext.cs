@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PhoneBook.Abstractions
+﻿namespace PhoneBook.Abstractions
 {
     public class LoggingContext
     {

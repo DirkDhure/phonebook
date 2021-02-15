@@ -1,12 +1,10 @@
 ﻿using PhoneBook.Abstractions.Messaging;
 using PhoneBook.Abstractions.Model;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PhoneBook.Abstractions.Events
 {
-   
+
     public class PhoneBookDeleted : IEvent<DeleteEntity>
     {
         public PhoneBookDeleted(DeleteEntity deleteEntity)

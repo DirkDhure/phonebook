@@ -11,7 +11,6 @@ namespace PhoneBook.Core.Services
         {
             return new PhoneBookEntity()
             {
-
                 Id = Guid.NewGuid(),
                 Entries= new List<Abstractions.Model.PhoneBookEntry>(),                
                IsNew= true

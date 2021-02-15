@@ -11,12 +11,12 @@ namespace PhoneBook.Core.EventHandlers
 {
 
 
-    public class PhoneBookEntryCreatedEventHandler : IEventHandler<PhoneBookEntryCreated>
+    public class PhoneBookEntryUpdatedEventHandler : IEventHandler<PhoneBookEntryUpdated>
     {
         private IPhoneBookQueryRepository _readRepository;
-        private ILogger<PhoneBookEntryCreatedEventHandler> logger;
+        private ILogger<PhoneBookEntryUpdatedEventHandler> logger;
 
-        public PhoneBookEntryCreatedEventHandler(IPhoneBookQueryRepository readRepository, ILogger<PhoneBookEntryCreatedEventHandler> logger)
+        public PhoneBookEntryUpdatedEventHandler(IPhoneBookQueryRepository readRepository, ILogger<PhoneBookEntryUpdatedEventHandler> logger)
         {
             _readRepository = readRepository;
             this.logger = logger;
@@ -24,7 +24,7 @@ namespace PhoneBook.Core.EventHandlers
 
         public string HandlerName => GetType().Name.ToLower();
 
-        public async Task HandleAsync(PhoneBookEntryCreated @event)
+        public async Task HandleAsync(PhoneBookEntryUpdated @event)
         {
             logger.LogInformation("Loading phone book on the read db.............. ");
             var phoneBook = await _readRepository.LoadModelAsync(@event.EventData.PhoneBookId);

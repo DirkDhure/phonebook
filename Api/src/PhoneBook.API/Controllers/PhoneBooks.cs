@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -9,7 +8,6 @@ using PhoneBook.Abstractions.Model;
 using PhoneBook.Abstractions.Services;
 using PhoneBook.API.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -24,12 +22,14 @@ namespace PhoneBook.API.Controllers
         ILogger<PhoneBooksController> _logger;
         private readonly LoggingContext loggingContext;
         private readonly IPhoneBookApplication _phoneBookApplication;
+        private readonly IPhoneBookQueryHandler _phoneBookQueryHandler;
 
 
-        public PhoneBooksController(IPhoneBookApplication phoneBookApplication, ILogger<PhoneBooksController> logger)
+        public PhoneBooksController(IPhoneBookApplication phoneBookApplication, IPhoneBookQueryHandler phoneBookQueryHandler, ILogger<PhoneBooksController> logger)
         {
             _logger = logger;
             _phoneBookApplication = phoneBookApplication;
+            _phoneBookQueryHandler = phoneBookQueryHandler;
             loggingContext = new LoggingContext("localhost", "Phone Book Manager API", "PhoneBooksController", "", 200);
 
         }
@@ -49,7 +49,7 @@ namespace PhoneBook.API.Controllers
             _logger.LogInformation("Server Name: {0} Api Name : {1} Contoller Name : {2}, Action Name :{3} Status Code :{4} \n Data :{5}", loggingContext.ServerName, loggingContext.APIName, loggingContext.ControllerName, loggingContext.ActionName, loggingContext.StatusCode, data);
             RequestContext context = SecurityContextHelper.GetCurrentRequestContext(Request.HttpContext.User);
 
-            phoneBook.OwnerEmail = context.UserEmail;
+            //phoneBook.OwnerEmail = context.UserEmail;
             var command = new CreatePhoneBook
             {
                 CommandData = phoneBook,
@@ -129,31 +129,40 @@ namespace PhoneBook.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetPhoneBook(string emailAddress)
         {
-
-            loggingContext.ActionName = MethodBase.GetCurrentMethod().Name;
-            var data = JsonConvert.SerializeObject(emailAddress);
-            _logger.LogInformation("Server Name: {0} Api Name : {1} Contoller Name : {2}, Action Name :{3} Status Code :{4} \n Data :{5}", loggingContext.ServerName, loggingContext.APIName, loggingContext.ControllerName, loggingContext.ActionName, loggingContext.StatusCode, data);
             RequestContext context = SecurityContextHelper.GetCurrentRequestContext(Request.HttpContext.User);
+            loggingContext.ActionName = "GetPhoneBook";
+            _logger.LogInformation("Server Name: {0} Api Name : {1} Contoller Name : {2}, Action Name :{3} Status Code :{4}", loggingContext.ServerName, loggingContext.APIName, loggingContext.ControllerName, loggingContext.ActionName, loggingContext.StatusCode);
 
-
-            return Ok(new PhoneBook.Abstractions.Model.PhoneBook());
+            var phoneBook = await _phoneBookQueryHandler.GetPhoneBook( emailAddress, context);
+            return Ok(phoneBook);
 
         }
 
 
         [HttpGet]
-        [Route("{phoneBookId}/entries/{entryId}")]
+        [Route("{emailAddress}/entries/{entryId}")]
         [ProducesResponseType(typeof(Abstractions.Model.PhoneBookContact), StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetPhoneBookEntry(Guid phoneBookId, Guid entryId)
+        public async Task<IActionResult> GetPhoneBookEntry(string emailAddress, Guid entryId)
         {
-            loggingContext.ActionName = MethodBase.GetCurrentMethod().Name;
-            var data = JsonConvert.SerializeObject(phoneBookId);
-            _logger.LogInformation("Server Name: {0} Api Name : {1} Contoller Name : {2}, Action Name :{3} Status Code :{4} \n Data :{5}", loggingContext.ServerName, loggingContext.APIName, loggingContext.ControllerName, loggingContext.ActionName, loggingContext.StatusCode, data);
-            RequestContext context = SecurityContextHelper.GetCurrentRequestContext(Request.HttpContext.User);
 
-            return Ok(new PhoneBook.Abstractions.Model.PhoneBook());
+            RequestContext context = SecurityContextHelper.GetCurrentRequestContext(Request.HttpContext.User);
+            loggingContext.ActionName = "GetPhoneBookEntry";
+            _logger.LogInformation("Server Name: {0} Api Name : {1} Contoller Name : {2}, Action Name :{3} Status Code :{4}", loggingContext.ServerName, loggingContext.APIName, loggingContext.ControllerName, loggingContext.ActionName, loggingContext.StatusCode);
+
+            var phoneBook = await _phoneBookQueryHandler.GetPhoneBook(emailAddress, context);
+
+            if (phoneBook == null) {
+                return NotFound();
+            }
+
+            var contact = phoneBook.Entries.FirstOrDefault(e => e.Id == entryId);
+
+            if (contact == null) {
+                return NotFound();
+            }
+            return Ok(contact);
 
         }
 

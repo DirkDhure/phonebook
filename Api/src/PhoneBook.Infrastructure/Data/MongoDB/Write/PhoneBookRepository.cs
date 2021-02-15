@@ -66,8 +66,24 @@ namespace PhoneBook.Infrastructure.Data.MongoDB.Write
                             }
                         }
                         break;
-                   
-                    
+                    case SearchOptions.EMAILADDRESS:
+                        if (filter == null)
+                        {
+                            filter = Builders<PhoneBookEntity>.Filter.Eq("bookDetail.ownerEmail", parameter.Value.ToLower());
+                        }
+                        else
+                        {
+                            if (filterType == FilterType.And)
+                            {
+                                filter = Builders<PhoneBookEntity>.Filter.Eq("bookDetail.ownerEmail", parameter.Value.ToLower()) & filter;
+                            }
+                            if (filterType == FilterType.Or)
+                            {
+                                filter = Builders<PhoneBookEntity>.Filter.Eq("bookDetail.ownerEmail", parameter.Value.ToLower()) | filter;
+                            }
+                        }
+                        break;
+
                 }
 
             }
@@ -81,6 +97,9 @@ namespace PhoneBook.Infrastructure.Data.MongoDB.Write
             FilterDefinition<PhoneBookEntity> filter = Builders<PhoneBookEntity>.Filter.Ne("isDeleted", true);
 
              filter = Builders<PhoneBookEntity>.Filter.Eq("_id", id) & filter;
+
+
+
             if (filter == null)
             {
                 throw new ArgumentException("Invalid search parameters specified");

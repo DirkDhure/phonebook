@@ -9,7 +9,9 @@ namespace PhoneBook.Core.Aggregates
 {
     public class PhoneBookAggregate : BaseAggregate<PhoneBookEntity>
     {
-        ValidationResult validationResult = new ValidationResult();
+        ValidationResult validationResult = new ValidationResult() { 
+        
+        };
 
         public PhoneBookAggregate(PhoneBookEntity entity) : base(entity)
         {
@@ -52,6 +54,20 @@ namespace PhoneBook.Core.Aggregates
             }
             return result;
         }
+
+
+        public ValidationResult UpdatePhoneBookEntry(PhoneBookEntry entry)
+        {
+            var result = ValidatePhoneBookEntry(entry);
+            if (result.IsValid)
+            {
+                entry.PhoneBookId = Entity.Id;
+                SaveEntry(entry);
+
+                AddEvent(new PhoneBookEntryUpdated(entry));
+            }
+            return result;
+        }
         public void DeletePhoneBook()
         {
             Entity.IsDeleted = true;
@@ -84,6 +100,7 @@ namespace PhoneBook.Core.Aggregates
         /// <returns></returns>
         private ValidationResult ValidatePhoneBook(PhoneBookDetail phoneBookDetail)
         {
+            // to do phone book validatiosn here
             return validationResult;
         }
 
@@ -94,13 +111,14 @@ namespace PhoneBook.Core.Aggregates
         /// <returns></returns>
         private ValidationResult ValidatePhoneBookName(PhoneBookDetail phoneBookDetail)
         {
+            //to do name validations here
             return validationResult;
         }
 
         private ValidationResult ValidatePhoneBookEntry(PhoneBookEntry entry)
         {
 
-
+            //to do validations here
             return validationResult;
         }
 
@@ -112,8 +130,10 @@ namespace PhoneBook.Core.Aggregates
         /// <param name="phoneBookDetail"></param>
         private void SetDetails(PhoneBookDetail phoneBookDetail)
         {
+            phoneBookDetail.OwnerEmail = phoneBookDetail.OwnerEmail.ToLower();
             phoneBookDetail.Id = Entity.Id;
             Entity.BookDetail = phoneBookDetail;
+            
         }
 
         private void SaveEntry(PhoneBookEntry entry)

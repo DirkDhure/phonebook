@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PhoneBook.Abstractions;
 using PhoneBook.Abstractions.Repositories.Read;
 using PhoneBook.Abstractions.Repositories.Write;
 using PhoneBook.Abstractions.Services;
@@ -66,12 +67,12 @@ namespace PhoneBook.API
                 options.Audience = "https://agencybanking/agents/api";
             });
 
-
+            services.Configure<ApplicationSettings>(this.Configuration.GetSection("ApplicationSettings"));
             services.AddTransient<IPhoneBookApplication, PhoneBookApplication>();
             services.AddTransient<IPhoneBookQueryRepository, PhoneBookQueryRepository>();
             services.AddTransient<IPhoneBookRepository, PhoneBookRepository>();
-
-
+            services.AddTransient<IPhoneBookQueryHandler, PhoneBookQueryHandler>();
+    
             //add httpclient
             services.AddHttpClient();
         }
