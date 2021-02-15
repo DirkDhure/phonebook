@@ -52,7 +52,7 @@ namespace PhoneBook.Abstractions.Services
                 {
                     method.Invoke(handler, new object[] { @event });
 
-                    // await (Task)((dynamic)handler).HandleAsync(@event);
+                   
                 }
                 catch (Exception ex)
                 {

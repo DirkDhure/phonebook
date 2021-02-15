@@ -51,7 +51,6 @@ namespace PhoneBook.API.Controllers
             _logger.LogInformation("Server Name: {0} Api Name : {1} Contoller Name : {2}, Action Name :{3} Status Code :{4} \n Data :{5}", loggingContext.ServerName, loggingContext.APIName, loggingContext.ControllerName, loggingContext.ActionName, loggingContext.StatusCode, data);
             RequestContext context = SecurityContextHelper.GetCurrentRequestContext(Request.HttpContext.User);
 
-            //phoneBook.OwnerEmail = context.UserEmail;
             var command = new CreatePhoneBook
             {
                 CommandData = phoneBook,
