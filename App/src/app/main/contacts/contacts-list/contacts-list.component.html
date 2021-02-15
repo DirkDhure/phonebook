@@ -1,0 +1,99 @@
+<div id="contact-list">
+    <mat-table [@animateStagger]="{value:'50'}" [dataSource]="dataSource" matSort fxflex="1 1 auto"
+        fuseperfectscrollbar>
+        <ng-container matColumnDef="avatar">
+            <mat-header-cell fxFlex="95px" *matHeaderCellDef></mat-header-cell>
+            <mat-cell fxFlex="95px" *matCellDef="let contact">
+                <img *ngIf="contact.avatarUrl" src="{{contact.avatarUrl}}" class="avatar" />
+                <img *ngIf="!contact.avatarUrl" class="avatar" src="assets/images/avatars/profile.jpg" />
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="mt-12">Name</mat-header-cell>
+            <mat-cell *matCellDef=" let contact">
+                <p class="text-truncate font-weight-600" *ngIf="!contact.companyName">{{contact.firstName}} {{contact.lastName}}
+                <p class="text-truncate font-weight-600" *ngIf="contact.companyName">{{contact.companyName}}
+                </p>
+            </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="contactType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Contact type</mat-header-cell>
+            <mat-cell *matCellDef=" let contact" fxHide fxShow.gt-xs>
+                <p class="text-truncate" *ngIf="!contact.companyName"> Individual</p>
+                <p class="text-truncate" *ngIf="contact.companyName"> Company</p>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="jobTitle">
+            <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-lg>Job title</mat-header-cell>
+            <mat-cell *matCellDef=" let contact" fxHide fxShow.gt-lg>
+                <p class="text-truncate"> {{contact.jobTitle}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="company">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>Company</mat-header-cell>
+            <mat-cell *matCellDef="let contact" fxHide fxShow.gt-lg>
+                <p class="text-truncate"> {{contact.company}}</p>
+            </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="contacts">
+            <mat-header-cell *matHeaderCellDef>Contacts
+            </mat-header-cell>
+            <mat-cell *matCellDef="let contact">
+                <!-- <nursery-phone-number [number]="contact.mobile" [showText]="false">
+                </nursery-phone-number>
+                <nursery-email [email]="contact.emailAddress" [showText]="false" *ngIf="contact.emailAddress">
+                </nursery-email> -->
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="buttons">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell class="py-8" *matCellDef="let contact">
+                <div fxFlex="row" fxLayoutAlign="end end" fxHide fxShow.gt-xs class="mb-8">
+                    <button mat-icon-button aria-label="More" (click)="addContact(contact)" class="text-secondary s-16">
+                        <mat-icon class="secondary-text s-16">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button aria-label="More" (click)="deleteContact(contact.id)">
+                        <mat-icon class="secondary-text s-16">delete</mat-icon>
+                    </button>
+
+
+                </div>
+                <div fxFlex="" fxLayoutAlign="end end" fxHide fxShow.xs class="mb-8">
+
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon class="s-20">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <span>Edit contact</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>Delete contact</span>
+                        </button>
+
+                    </mat-menu>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+        <mat-row *matRowDef="let contact; columns: displayedColumns;" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+    </mat-table>
+
+
+
+
+</div>
+<!-- <div fxflex="0 0 auto" fxlayout="column">
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+  
+</div> -->

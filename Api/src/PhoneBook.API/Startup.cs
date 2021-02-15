@@ -63,8 +63,9 @@ namespace PhoneBook.API
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = "https://veneka.auth0.com/";
-                options.Audience = "https://agencybanking/agents/api";
+                //to do: cofingure sts
+                options.Authority = "https://sts.url";
+                options.Audience = "https://phonebookmanager.api";
             });
 
             services.Configure<ApplicationSettings>(this.Configuration.GetSection("ApplicationSettings"));

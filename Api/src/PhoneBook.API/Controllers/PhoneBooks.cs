@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -24,7 +25,8 @@ namespace PhoneBook.API.Controllers
         private readonly IPhoneBookApplication _phoneBookApplication;
         private readonly IPhoneBookQueryHandler _phoneBookQueryHandler;
 
-
+        // to do: enable once sts is configure
+        ///[Authorize]
         public PhoneBooksController(IPhoneBookApplication phoneBookApplication, IPhoneBookQueryHandler phoneBookQueryHandler, ILogger<PhoneBooksController> logger)
         {
             _logger = logger;
