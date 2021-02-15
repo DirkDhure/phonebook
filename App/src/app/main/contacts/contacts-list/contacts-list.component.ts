@@ -61,7 +61,8 @@ export class ContactsListComponent implements OnInit, OnChanges {
         this.dialogRef = this._matDialog.open(ContactFormComponent, {
             panelClass: 'contact-form-dialog',
             data: {
-                action: 'new'
+                action: 'edit',
+                contact: contact
             }
         });
     }
@@ -74,9 +75,8 @@ export class ContactsListComponent implements OnInit, OnChanges {
         this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
 
         this.confirmDialogRef.afterClosed().subscribe(result => {
-            if ( result )
-            {
-            //    this._contactsService.deleteContact(contact);
+            if (result) {
+                //    this._contactsService.deleteContact(contact);
             }
             this.confirmDialogRef = null;
         });

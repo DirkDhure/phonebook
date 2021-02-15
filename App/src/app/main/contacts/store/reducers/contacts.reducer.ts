@@ -4,7 +4,7 @@ import { ContactEntryModel } from '../../models/contact-entry.model';
 import { ContactsActions } from '../actions/contacts.action-types';
 
 
-export interface ContactsEntriesState extends EntityState<ContactEntryModel> {}
+export interface ContactsEntriesState extends EntityState<ContactEntryModel> { }
 
 export const contactsEntryEntityAdapter = createEntityAdapter<ContactEntryModel>();
 
@@ -13,6 +13,8 @@ export const initialContactsEntriesState = contactsEntryEntityAdapter.getInitial
 const contactsEntriesStateReducer = createReducer(
     initialContactsEntriesState,
     on(ContactsActions.contactsLoaded, (state, action) => contactsEntryEntityAdapter.addAll(action.contacts, state)),
+    on(ContactsActions.contactLoaded, (state, action) => contactsEntryEntityAdapter.addOne(action.contact, state)),
+    on(ContactsActions.updateContact, (state, action) => contactsEntryEntityAdapter.updateOne(action.update, state)),
 );
 
 export const {

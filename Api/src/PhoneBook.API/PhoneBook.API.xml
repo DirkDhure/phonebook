@@ -4,6 +4,9 @@
         <name>PhoneBook.API</name>
     </assembly>
     <members>
+        <member name="M:PhoneBook.API.Controllers.PhoneBooksController.#ctor(PhoneBook.Abstractions.Services.IPhoneBookApplication,PhoneBook.Abstractions.Services.IPhoneBookQueryHandler,Microsoft.Extensions.Logging.ILogger{PhoneBook.API.Controllers.PhoneBooksController})">
+            [Authorize]
+        </member>
         <!-- Badly formed XML comment ignored for member "T:PhoneBook.API.Program" -->
     </members>
 </doc>

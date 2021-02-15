@@ -23,6 +23,7 @@ import { reducers, metaReducers } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { StateModule } from './store/state.module';
 
 const appRoutes: Routes = [
     {
@@ -56,6 +57,8 @@ const appRoutes: Routes = [
         FuseSharedModule,
         FuseSidebarModule,
         FuseThemeOptionsModule,
+
+        StateModule,
         // ngrx
         StoreModule.forRoot(reducers, {
             metaReducers,

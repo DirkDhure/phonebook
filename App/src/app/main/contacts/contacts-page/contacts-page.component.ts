@@ -8,6 +8,7 @@ import { AppState } from 'app/store/reducers';
 import { Subject } from 'rxjs';
 import { ContactFormComponent } from '../contact-form/contact-form.component';
 import { ContactsService } from '../services/contacts.service';
+import { loadPhoneBook } from '../store/actions/phone-book.actions';
 import { selectContacts } from '../store/selectors/contact-entries.selectors';
 
 @Component({
@@ -15,9 +16,9 @@ import { selectContacts } from '../store/selectors/contact-entries.selectors';
   templateUrl: './contacts-page.component.html',
   styleUrls: ['./contacts-page.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  animations   : fuseAnimations
+  animations: fuseAnimations
 })
-export class ContactsPageComponent implements OnInit, OnDestroy { 
+export class ContactsPageComponent implements OnInit, OnDestroy {
   contacts = [];
   filteredContacts = [];
 
@@ -28,15 +29,17 @@ export class ContactsPageComponent implements OnInit, OnDestroy {
 
   // Private
   private _unsubscribeAll: Subject<any>;
-  constructor( 
+  constructor(
     private _contactsService: ContactsService,
     private _fuseSidebarService: FuseSidebarService, private store: Store<AppState>,
     private _matDialog: MatDialog) {
-      // Set the defaults
-      this.searchInput = new FormControl('');
+    this.store.dispatch(loadPhoneBook({ email: 'dirkdhure%40gmail.com' }));
+    // Set the defaults
+    this.searchInput = new FormControl('');
 
-      // Set the private defaults
-      this._unsubscribeAll = new Subject(); }
+    // Set the private defaults
+    this._unsubscribeAll = new Subject();
+  }
 
   ngOnInit(): any {
     this.store.pipe(select(selectContacts())).subscribe(contacts => {
@@ -49,8 +52,7 @@ export class ContactsPageComponent implements OnInit, OnDestroy {
   /**
    * On destroy
    */
-  ngOnDestroy(): void
-  {
+  ngOnDestroy(): void {
     this.onDestroy.next();
   }
 
@@ -61,14 +63,13 @@ export class ContactsPageComponent implements OnInit, OnDestroy {
   /**
    * New contact
    */
-  newContact(): void
-  {
-      this.dialogRef = this._matDialog.open(ContactFormComponent, {
-          panelClass: 'contact-form-dialog',
-          data      : {
-              action: 'new'
-          }
-      });
+  newContact(): void {
+    this.dialogRef = this._matDialog.open(ContactFormComponent, {
+      panelClass: 'contact-form-dialog',
+      data: {
+        action: 'new'
+      }
+    });
   }
 
   /**
@@ -76,9 +77,8 @@ export class ContactsPageComponent implements OnInit, OnDestroy {
    *
    * @param name
    */
-  toggleSidebar(name): void
-  {
-      this._fuseSidebarService.getSidebar(name).toggleOpen();
+  toggleSidebar(name): void {
+    this._fuseSidebarService.getSidebar(name).toggleOpen();
   }
 
 }

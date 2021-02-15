@@ -42,8 +42,7 @@
                 </mat-form-field>
             </div>
             <div formArrayName='contacts' fxLayout="column">
-                <div fxLayout="column"
-                    *ngFor="let user of contactForm.get('contacts')['controls']; let i = index">
+                <div fxLayout="column" *ngFor="let user of contactForm.get('contacts')['controls']; let i = index">
                     <div [formGroupName]="i" fxFlex="100">
                         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
@@ -53,19 +52,17 @@
                                     <mat-option [value]="'Mobile'">
                                         Mobile
                                     </mat-option>
-                                    <mat-option [value]="'Tel'">
-                                        Tel
-                                    </mat-option>
+
                                     <mat-option [value]="'Home'">
                                         Home
                                     </mat-option>
                                     <mat-option [value]="'Work'">
                                         Work
                                     </mat-option>
-                                    <mat-option [value]="'Work Fax'">
-                                        Work Fa
+                                    <mat-option [value]="'Email'">
+                                        Email
                                     </mat-option>
-                                    
+
                                 </mat-select>
                             </mat-form-field>
 
@@ -75,13 +72,13 @@
                                 <mat-error>Contact text is required!</mat-error>
                             </mat-form-field>
 
-                           
 
-                        </div> 
+
+                        </div>
                         <button mat-icon-button color="warn" (click)="removeUser(i)" class="mt-8">
                             <mat-icon>remove_circle</mat-icon>
-                          </button>
-                       
+                        </button>
+
                     </div>
 
                 </div>
@@ -98,9 +95,9 @@
             Add phone number
         </button>
 
-      
 
-        <button mat-button class="primary px-32" [disabled]="contactForm.invalid" aria-label="SAVE">
+
+        <button mat-button class="primary px-32" [disabled]="contactForm.invalid" aria-label="SAVE" (click)="onSave()">
             Save
         </button>
 

@@ -1,7 +1,12 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Update } from '@ngrx/entity';
+import { Store } from '@ngrx/store';
+import { AppState } from 'app/store/reducers';
+import * as _ from 'lodash';
 import { ContactEntryModel } from '../models/contact-entry.model';
+import { addContact, updateContact } from '../store/actions/contacts.actions';
 
 @Component({
   selector: 'app-contact-form',
@@ -23,7 +28,7 @@ export class ContactFormComponent implements OnInit {
    * @param _data
    * @param {FormBuilder} _formBuilder
    */
-  constructor(
+  constructor(private store: Store<AppState>,
     public matDialogRef: MatDialogRef<ContactFormComponent>,
     @Inject(MAT_DIALOG_DATA) private _data: any,
     private _formBuilder: FormBuilder
@@ -54,14 +59,17 @@ export class ContactFormComponent implements OnInit {
    * @returns {FormGroup}
    */
   createContactForm(): FormGroup {
+    if (!this.contact.contacts) {
+      this.contact.contacts = [];
+    }
     return this._formBuilder.group({
       id: [this.contact.id],
-      name: [this.contact.name],
+      name: [this.contact.firstName],
       lastName: [this.contact.lastName],
       avatar: [this.contact.avatar],
       nickname: [this.contact.nickname],
       company: [this.contact.companyName],
-      contacts: this._formBuilder.array([this.contact.contacts])
+      contacts: this.setContacts()
     });
   }
   createItem(): any {
@@ -72,6 +80,23 @@ export class ContactFormComponent implements OnInit {
   }
 
 
+  setEntryContact(contact): any {
+    return this._formBuilder.group({
+      contactType: [contact.contactType],
+      text: [contact.text]
+    });
+
+  }
+
+  setContacts(): FormArray {
+    if (!this.contact.contacts) {
+      this.contact.contacts = []
+    }
+    const controls = this.contact.contacts.map(contact => {
+      return this.setEntryContact(contact);
+    });
+    return new FormArray(controls);
+  }
   adContact(): any {
     const add = this.contactForm.get('contacts') as FormArray;
     add.push(this.createItem());
@@ -82,10 +107,21 @@ export class ContactFormComponent implements OnInit {
     remove.removeAt(i);
   }
   onSave(): any {
-    this.contact.firstName = this.contactForm.value['firstName'];
+    this.contact = _.clone(this.contact);
+    this.contact.firstName = this.contactForm.value['name'];
     this.contact.lastName = this.contactForm.value['lastName'];
     this.contact.company = this.contactForm.value['companyName'];
     this.contact.contacts = this.contactForm.value['contacts'];
-    // this.store.dispatch({})
+    if (!this.contact.id) {
+      this.store.dispatch(addContact({ contact: this.contact }))
+    } else {
+      const update: Update<ContactEntryModel> = {
+        id: this.contact.id,
+        changes: this.contact
+      }
+      this.store.dispatch(updateContact({ update }))
+    }
+    this.contactForm.reset();
+    this.matDialogRef.close();
   }
 }

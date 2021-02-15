@@ -4,14 +4,14 @@
         <ng-container matColumnDef="avatar">
             <mat-header-cell fxFlex="95px" *matHeaderCellDef></mat-header-cell>
             <mat-cell fxFlex="95px" *matCellDef="let contact">
-                <img *ngIf="contact.avatarUrl" src="{{contact.avatarUrl}}" class="avatar" />
-                <img *ngIf="!contact.avatarUrl" class="avatar" src="assets/images/avatars/profile.jpg" />
+                <img class="avatar" src="assets/images/avatars/profile.jpg" />
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header class="mt-12">Name</mat-header-cell>
             <mat-cell *matCellDef=" let contact">
-                <p class="text-truncate font-weight-600" *ngIf="!contact.companyName">{{contact.firstName}} {{contact.lastName}}
+                <p class="text-truncate font-weight-600" *ngIf="!contact.companyName">{{contact.firstName}}
+                    {{contact.lastName}}
                 <p class="text-truncate font-weight-600" *ngIf="contact.companyName">{{contact.companyName}}
                 </p>
             </mat-cell>
@@ -44,10 +44,9 @@
             <mat-header-cell *matHeaderCellDef>Contacts
             </mat-header-cell>
             <mat-cell *matCellDef="let contact">
-                <!-- <nursery-phone-number [number]="contact.mobile" [showText]="false">
-                </nursery-phone-number>
-                <nursery-email [email]="contact.emailAddress" [showText]="false" *ngIf="contact.emailAddress">
-                </nursery-email> -->
+                <span *ngFor="let item of contact.contacts, index as i">{{item.text}}
+                    <span *ngIf="i+1 !== contact.contacts.length">, </span>
+                </span>
             </mat-cell>
         </ng-container>
 
